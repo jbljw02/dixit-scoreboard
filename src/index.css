@@ -1,0 +1,19 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  margin: 0;
+  padding: 0;
+  width: 100vw;
+  height: 100vh;
+  color: #212121;
+  font-size: 15px;
+}
+
+#root {
+  padding: 0 !important;
+  margin: 0 !important;
+  max-width: 100% !important;
+  max-height: 100% !important;
+}
