@@ -25,8 +25,10 @@ export default function ScoreCell({
 
   return (
     <td
+      // 첫 라운드는 왼쪽 테두리 삭제(겹침 방지)
       className={`${TABLE_STYLE.td}
-        w-[45px] h-[40px] cursor-pointer hover:bg-orange-100 transition-colors`}
+        w-[45px] h-[40px] cursor-pointer hover:bg-orange-100 transition-colors
+        ${roundIndex === 0 && 'border-l-0'}`}
       onClick={() => cellClick(playerId, roundIndex, currentScore)}>
       {/* 플레이어의 점수를 수정중인지에 따라 분기 */}
       {

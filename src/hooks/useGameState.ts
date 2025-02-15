@@ -28,10 +28,12 @@ export default function useGameState() {
                 cancelButton: 'px-4 py-2 text-white rounded-lg'
             }
         }).then((result) => {
+            // 새로고침 -> 새 게임 시작
             if (result.isConfirmed) {
-                // 새 게임 시작
                 window.location.reload();
-            } else if (result.isDismissed && result.dismiss === Swal.DismissReason.cancel) {
+            }
+            // 라운드와 점수만 초기화하여 게임 다시 시작
+            else if (result.isDismissed && result.dismiss === Swal.DismissReason.cancel) {
                 restartGame();
             }
         });

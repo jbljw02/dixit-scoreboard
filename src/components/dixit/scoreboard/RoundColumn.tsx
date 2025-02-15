@@ -16,7 +16,9 @@ export default function RoundColumn() {
               Array.from({ length: rounds }).map((_, index) => (
                 <th
                   key={index}
-                  className={TABLE_STYLE.th}>
+                  // 첫 라운드는 왼쪽 테두리 삭제(겹침 방지)
+                  className={`${TABLE_STYLE.th}
+                  ${index === 0 && 'border-l-0'}`}>
                   {index + 1}R
                 </th>
               ))
