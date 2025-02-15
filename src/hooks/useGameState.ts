@@ -3,7 +3,12 @@ import { resetRounds } from '../store/features/roundSlice';
 import { useAppDispatch } from '../store/hooks';
 import { resetScores } from '../store/features/playerSlice';
 
-export default function useGameState() {
+interface GameState {
+    gameOverEvent: (playerName: string, totalScore: number) => void;
+    restartGame: () => void;
+}
+
+export default function useGameState(): GameState {
     const dispatch = useAppDispatch();
 
     // 라운드 및 플레이어의 점수 초기화
@@ -39,5 +44,5 @@ export default function useGameState() {
         });
     };
 
-    return { gameOverEvent };
+    return { gameOverEvent, restartGame };
 }

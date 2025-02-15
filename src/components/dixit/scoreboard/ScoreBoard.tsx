@@ -3,6 +3,7 @@ import PlayerColumn from './PlayerColumn';
 import RoundColumn from './RoundColumn';
 import { useAppDispatch, useAppSelector } from '../../../store/hooks';
 import { addRound } from '../../../store/features/roundSlice';
+import Footer from '../Footer';
 
 export default function ScoreBoard() {
   const dispatch = useAppDispatch();
@@ -10,7 +11,7 @@ export default function ScoreBoard() {
   const isGameStarted = useAppSelector(state => state.isGameStarted);
 
   return (
-    <div className="flex-1 mb-6 bg-white rounded-lg shadow-md">
+    <div className="flex flex-col flex-1 mb-6 bg-white rounded-lg shadow-md">
       <div className="flex w-full">
         {/* 왼쪽 고정 열(플레이어) */}
         <PlayerColumn />
@@ -31,6 +32,12 @@ export default function ScoreBoard() {
               라운드 추가
             </CommonButton>
           </div>
+        )
+      }
+      <div className="flex-grow" />
+      {
+        isGameStarted && (
+          <Footer />
         )
       }
     </div>

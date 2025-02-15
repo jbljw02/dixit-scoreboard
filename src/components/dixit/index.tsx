@@ -4,6 +4,7 @@ import CommonButton from '../common/CommonButton';
 import TargetScoreInput from './TargetScoreInput';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { setIsGameStarted } from '../../store/features/gameSlice';
+import Footer from './Footer';
 
 export default function Dixit() {
     const dispatch = useAppDispatch();
@@ -13,7 +14,9 @@ export default function Dixit() {
 
     return (
         <div className="flex flex-col h-screen min-h-screen bg-gradient-to-b from-orange-100 to-yellow-50 px-9 py-7 overflow-hidden">
-            <h1 className="text-4xl font-bold text-center mb-6 text-orange-600 font-serif tracking-wider flex-none">
+            <h1
+                onClick={() => window.location.reload()}
+                className="text-4xl font-bold text-center mb-6 text-orange-600 font-serif tracking-wider flex-none">
                 Dixit Score Board
             </h1>
             {/* 승리 조건 점수 설정 영역 */}
