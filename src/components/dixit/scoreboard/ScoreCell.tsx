@@ -1,5 +1,5 @@
 import CommonInput from '../../common/CommonInput';
-import useScoreCell from '../../../hooks/useScoreCell';
+import useScoreCell from '../../../hooks/dixit/useScoreCell';
 import { TABLE_STYLE } from './constant/styles';
 
 interface ScoreCellProps {

@@ -1,4 +1,4 @@
-import useGameState from "../../hooks/useGameState";
+import useGameState from "../../hooks/dixit/useGameState";
 import CommonButton from "../common/CommonButton";
 
 export default function Footer() {

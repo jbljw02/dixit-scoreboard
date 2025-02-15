@@ -1,9 +1,9 @@
 import { useState } from "react";
-import { EditingCell } from "../types/dixit.type";
-import getTotal from "../utils/getTotal";
+import { EditingCell } from "../../types/dixit.type";
+import getTotal from "../../utils/getTotal";
 import useGameState from "./useGameState";
-import { useAppDispatch, useAppSelector } from "../store/hooks";
-import { updateScore } from "../store/features/playerSlice";
+import { useAppDispatch, useAppSelector } from "../../store/hooks";
+import { updateScore } from "../../store/features/playerSlice";
 
 // 점수 관리 훅
 export default function useScoreCell() {
