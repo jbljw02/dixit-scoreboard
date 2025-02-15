@@ -1,7 +1,7 @@
 import Swal from 'sweetalert2';
-import { resetRounds } from '../store/features/roundSlice';
-import { useAppDispatch } from '../store/hooks';
-import { resetScores } from '../store/features/playerSlice';
+import { resetRounds } from '../../store/features/roundSlice';
+import { useAppDispatch } from '../../store/hooks';
+import { resetScores } from '../../store/features/playerSlice';
 
 interface GameState {
     gameOverEvent: (playerName: string, totalScore: number) => void;
