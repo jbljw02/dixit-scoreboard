@@ -7,10 +7,10 @@ export const roundsSlice = createSlice({
         addRound: (state) => {
             return state + 1;
         },
-        resetRounds: (state) => {
+        resetRounds: () => {
             return 6;
         },
-        setRounds: (state, action) => {
+        setRounds: (_, action) => {
             return action.payload;
         },
     },

@@ -4,7 +4,7 @@ export const isGameStartedSlice = createSlice({
     name: 'isGameStarted',
     initialState: false,
     reducers: {
-        setIsGameStarted: (state, action) => {
+        setIsGameStarted: (_, action) => {
             return action.payload;
         },
     },
