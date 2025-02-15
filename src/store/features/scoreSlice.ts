@@ -4,7 +4,7 @@ export const targetScoreSlice = createSlice({
     name: 'targetScore',
     initialState: 30,
     reducers: {
-        setTargetScore: (state, action) => {
+        setTargetScore: (_, action) => {
             return action.payload;
         },
     },

@@ -4,7 +4,6 @@ import CommonButton from '../common/CommonButton';
 import TargetScoreInput from './TargetScoreInput';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { setIsGameStarted } from '../../store/features/gameSlice';
-import Footer from './Footer';
 
 export default function Dixit() {
     const dispatch = useAppDispatch();
