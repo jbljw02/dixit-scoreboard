@@ -12,7 +12,7 @@ export default function Dixit() {
     const isGameStarted = useAppSelector(state => state.isGameStarted);
 
     return (
-        <div className="flex flex-col h-screen min-h-screen bg-gradient-to-b from-orange-100 to-yellow-50 px-9 py-7 overflow-hidden">
+        <div className="flex flex-col h-screen min-h-screen bg-gradient-to-b from-orange-100 to-yellow-50 px-9 py-7 overflow-x-hidden overflow-y-auto">
             <h1
                 onClick={() => window.location.reload()}
                 className="text-4xl font-bold text-center mb-6 text-orange-600 font-serif tracking-wider flex-none">

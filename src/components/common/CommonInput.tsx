@@ -1,23 +1,28 @@
 import { InputProps } from "../../types/common.type";
 import { createPortal } from 'react-dom';
-import { useRef, useEffect, useState } from 'react';
+import { useRef, useState } from 'react';
+import useViewportCalculator from '../../hooks/useCalculateViewport';
 
 export default function CommonInput({ errorText, ...props }: InputProps) {
     const inputRef = useRef<HTMLInputElement>(null);
     const [errorPosition, setErrorPosition] = useState<{ top: number; left: number } | null>(null);
 
     // 에러 메시지 위치 업데이트
-    useEffect(() => {
+    const updateErrorPosition = () => {
         if (inputRef.current && errorText) {
             const rect = inputRef.current.getBoundingClientRect();
+            const scrollY = window.scrollY;
+
             setErrorPosition({
-                top: rect.bottom + 8,
-                left: rect.left + rect.width / 2
+                top: rect.bottom + scrollY + 8,
+                left: rect.left + rect.width / 2 // input 기준 중앙
             });
         } else {
             setErrorPosition(null); // 초기 위치에 발생하는 깜빡임을 방지
         }
-    }, [errorText]);
+    };
+
+    useViewportCalculator({ onResize: updateErrorPosition });
 
     return (
         <div className="relative w-full">
