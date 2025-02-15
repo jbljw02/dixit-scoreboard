@@ -7,6 +7,7 @@ body {
   padding: 0;
   color: #212121;
   font-size: 15px;
+  height: 100svh;
 }
 
 #root {
@@ -14,4 +15,5 @@ body {
   margin: 0 !important;
   max-width: 100% !important;
   max-height: 100% !important;
+  height: 100svh;
 }
