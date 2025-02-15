@@ -4,6 +4,7 @@ import getTotal from "../../utils/getTotal";
 import useGameState from "./useGameState";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { updateScore } from "../../store/features/playerSlice";
+import { keyDownEvent } from "../../utils/keyDownEvent";
 
 // 점수 관리 훅
 export default function useScoreCell() {
@@ -14,7 +15,6 @@ export default function useScoreCell() {
 
     const [editingCell, setEditingCell] = useState<EditingCell | null>(null); // 현재 수정 중인 셀 정보
     const [editingScore, setEditingScore] = useState<string>(''); // 현재 수정 중인 점수
-    const [errorMessage, setErrorMessage] = useState<string>(''); // 에러 메시지 상태 추가
 
     const { gameOverEvent } = useGameState();
 
@@ -29,8 +29,7 @@ export default function useScoreCell() {
 
     // 클릭된 셀의 점수 변경
     const cellScoreChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const value = e.target.value;
-        const numberValue = Number(value);
+        const value = Number(e.target.value);
 
         /**
           * 최대 점수 계산(이야기꾼이 아닐 때) 및 제한
@@ -42,14 +41,12 @@ export default function useScoreCell() {
           * 즉, 한 라운드당 최대 점수는 `플레이어 수 + 1`점
           */
         const maxScore = players.length + 1;
-        if (numberValue > maxScore) {
-            setErrorMessage(`현재 라운드의 최대 점수는 ${maxScore}점이에요`);
+        if (value > maxScore) {
             setEditingScore(String(maxScore)); // 최대값을 초과할 경우 최대값으로 설정하고 작업 중지
             return;
         }
 
-        setErrorMessage('');
-        setEditingScore(String(numberValue));
+        setEditingScore(String(value));
     };
 
     // 변경된 셀의 점수를 사용자 정보에 저장
@@ -74,37 +71,30 @@ export default function useScoreCell() {
         const newTotalScore = getTotal(player?.scores || []) + newScore;
 
         // 목표 점수 도달 시 게임 종료
-        if (newTotalScore >= targetScore && player) {
+        if (newTotalScore >= Number(targetScore) && player) {
             gameOverEvent(player.name, newTotalScore);
         }
 
         // 상태 초기화
         setEditingScore('');
-        setErrorMessage('');
         setEditingCell(null);
     };
 
     // ENTER: 점수 제출, ESC: 수정 중인 셀 정보 초기화
-    const keyDownEvent = (e: React.KeyboardEvent) => {
-        if (e.key === 'Enter') {
-            // 이벤트 전파 및 버블링 방지
-            e.preventDefault();
-            e.stopPropagation();
-
-            cellScoreSubmit();
-        } else if (e.key === 'Escape') {
+    const scoreCellKeyDownEvent = keyDownEvent({
+        onEnter: cellScoreSubmit,
+        onEscape: () => {
             setEditingCell(null);
             setEditingScore('');
         }
-    };
+    });
 
     return {
         editingCell,
         editingScore,
-        errorMessage,
         cellClick,
         cellScoreChange,
         cellScoreSubmit,
-        keyDownEvent
+        scoreCellKeyDownEvent
     }
 }

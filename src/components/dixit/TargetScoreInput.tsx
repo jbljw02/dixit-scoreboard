@@ -2,20 +2,34 @@ import { useState } from 'react';
 import CommonInput from '../common/CommonInput';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { setTargetScore } from '../../store/features/scoreSlice';
+import { keyDownEvent } from '../../utils/keyDownEvent';
 
 export default function TargetScoreInput() {
     const dispatch = useAppDispatch();
-    
+
     const targetScore = useAppSelector(state => state.targetScore);
     const [isEditingTarget, setIsEditingTarget] = useState<boolean>(false);
 
     // 승리 조건 점수 변경
     const targetScoreChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const value = Number(e.target.value);
-        if (value >= 1) {
-            dispatch(setTargetScore(value));
-        }
+
+        dispatch(setTargetScore(String(value)));
     };
+
+    const targetScoreSubmit = () => {
+        if (Number(targetScore) === 0) {
+            return;
+        }
+
+        setIsEditingTarget(false);
+    };
+
+    // ENTER, ESC: 점수 제출 및 수정 중단
+    const targetScoreKeyDownEvent = keyDownEvent({
+        onEnter: targetScoreSubmit,
+        onEscape: targetScoreSubmit
+    });
 
     return (
         <div className="flex items-center gap-2 mb-6 p-4 bg-white rounded-lg shadow-md">
@@ -29,10 +43,8 @@ export default function TargetScoreInput() {
                         type="number"
                         value={targetScore}
                         onChange={targetScoreChange}
-                        onBlur={() => setIsEditingTarget(false)}
-                        onKeyDown={(e) => {
-                            if (e.key === 'Enter') setIsEditingTarget(false);
-                        }}
+                        onBlur={targetScoreSubmit}
+                        onKeyDown={targetScoreKeyDownEvent}
                         autoFocus={true}
                         className="h-[35px]" />
                 ) :

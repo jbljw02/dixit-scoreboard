@@ -1,4 +1,5 @@
 import useScoreCell from '../../../hooks/dixit/useScoreCell';
+import CommonInput from '../../common/CommonInput';
 import { TABLE_STYLE } from './constant/styles';
 
 interface ScoreCellProps {
@@ -15,11 +16,10 @@ export default function ScoreCell({
   const {
     editingCell,
     editingScore,
-    errorMessage,
     cellClick,
     cellScoreChange,
     cellScoreSubmit,
-    keyDownEvent
+    scoreCellKeyDownEvent
   } = useScoreCell();
 
   return (
@@ -34,25 +34,14 @@ export default function ScoreCell({
         editingCell?.playerId === playerId &&
           editingCell?.roundIndex === roundIndex ? (
           <div className="flex items-center justify-center w-full h-full text-center relative">
-            <input
+            <CommonInput
               type="number"
               value={editingScore}
               onChange={cellScoreChange}
-              onKeyDown={keyDownEvent}
+              onKeyDown={scoreCellKeyDownEvent}
               onBlur={cellScoreSubmit}
-              // [appearance:textfield]: input을 일반 텍스트 필드처럼 만들어서 숫자 잘림 방지
-              className="w-[30px] h-[30px] text-center border border-orange-200 
-                rounded-lg focus:outline-none focus:ring-1 focus:ring-orange-400
-                [appearance:textfield]"
+              className="w-[30px] h-[30px] !p-0 text-center [appearance:textfield] "
               autoFocus={true} />
-            {
-              errorMessage && (
-                <div className="absolute left-1/2 -translate-x-1/2 top-full mt-1
-                  bg-red-200 text-red-600 text-xs px-2 py-1 rounded whitespace-nowrap z-50">
-                  {errorMessage}
-                </div>
-              )
-            }
           </div>
         ) : (
           <div className="w-full h-full flex items-center justify-center">
