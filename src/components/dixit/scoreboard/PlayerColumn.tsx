@@ -33,7 +33,7 @@ export default function PlayerColumn() {
                             {/* 총점 */}
                             {
                                 isGameStarted && (
-                                    <td className={`${TABLE_STYLE.td} font-semibold`}>
+                                    <td className={`${TABLE_STYLE.td} font-semibold text-center`}>
                                         {player.totalScore}
                                     </td>
                                 )
