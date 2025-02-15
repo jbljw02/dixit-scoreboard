@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import CommonInput from '../../common/CommonInput';
+import CommonInput from '../common/CommonInput';
 
 interface TargetScoreInputProps {
     targetScore: number;

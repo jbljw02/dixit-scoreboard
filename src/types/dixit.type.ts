@@ -23,6 +23,7 @@ export interface ScoreBoardProps {
     onUpdateScore: (props: UpdateScoreProps) => void;
     isGameStarted: boolean;
     targetScore: number;
+    onRestartGame: () => void;
 }
 
 // 점수를 입력하는 컴포넌트의 props 인터페이스

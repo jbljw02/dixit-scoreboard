@@ -1,13 +1,22 @@
 import { useState } from "react";
 import { EditingCell, Player, UpdateScoreProps } from "../types/dixit.type";
+import getTotal from "../utils/getTotal";
+import useGameState from "./useGameState";
+
+interface UseScoreCellProps {
+    players: Player[];
+    onUpdateScore: (props: UpdateScoreProps) => void;
+    targetScore: number;
+    onRestartGame: () => void;
+}
 
 // 점수 관리 훅
-export default function useScoreCell({ players, onUpdateScore }:
-    { players: Player[], onUpdateScore: (props: UpdateScoreProps) => void }) {
-
+export default function useScoreCell({ players, onUpdateScore, targetScore }: UseScoreCellProps) {
     const [editingCell, setEditingCell] = useState<EditingCell | null>(null); // 현재 수정 중인 셀 정보
     const [editingScore, setEditingScore] = useState<string>(''); // 현재 수정 중인 점수
     const [errorMessage, setErrorMessage] = useState<string>(''); // 에러 메시지 상태 추가
+
+    const { gameOverEvent } = useGameState({ onRestartGame: () => { } });
 
     // 셀 클릭 시 점수 수정 시작
     const cellClick = (playerId: string, roundIndex: number, currentScore: number) => {
@@ -53,9 +62,23 @@ export default function useScoreCell({ players, onUpdateScore }:
             newScore > players.length + 1)
             return;
 
-        onUpdateScore({ playerId: editingCell.playerId, roundIndex: editingCell.roundIndex, newScore });
+        // 점수 업데이트
+        onUpdateScore({
+            playerId: editingCell.playerId,
+            roundIndex: editingCell.roundIndex,
+            newScore
+        });
 
-        // 제출 후 점수, 에러 메시지, 수정 중인 셀 정보 초기화
+        // 해당 플레이어의 새로운 총점 계산
+        const player = players.find(player => player.id === editingCell.playerId);
+        const newTotalScore = getTotal(player?.scores || []) + newScore;
+
+        // 목표 점수 도달 시 게임 종료
+        if (newTotalScore >= targetScore && player) {
+            gameOverEvent(player.name, newTotalScore);
+        }
+
+        // 상태 초기화
         setEditingScore('');
         setErrorMessage('');
         setEditingCell(null);
@@ -64,6 +87,10 @@ export default function useScoreCell({ players, onUpdateScore }:
     // ENTER: 점수 제출, ESC: 수정 중인 셀 정보 초기화
     const keyDownEvent = (e: React.KeyboardEvent) => {
         if (e.key === 'Enter') {
+            // 이벤트 전파 및 버블링 방지
+            e.preventDefault();
+            e.stopPropagation();
+
             cellScoreSubmit();
         } else if (e.key === 'Escape') {
             setEditingCell(null);

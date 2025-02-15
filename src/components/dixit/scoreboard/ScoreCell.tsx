@@ -9,6 +9,8 @@ interface ScoreCellProps {
   roundIndex: number;
   currentScore: number;
   onUpdateScore: (props: UpdateScoreProps) => void;
+  targetScore: number;
+  onRestartGame: () => void;
 }
 
 export default function ScoreCell({
@@ -17,6 +19,8 @@ export default function ScoreCell({
   roundIndex,
   currentScore,
   onUpdateScore,
+  targetScore,
+  onRestartGame
 }: ScoreCellProps) {
   const {
     editingCell,
@@ -26,7 +30,7 @@ export default function ScoreCell({
     cellScoreChange,
     cellScoreSubmit,
     keyDownEvent
-  } = useScoreCell({ players, onUpdateScore });
+  } = useScoreCell({ players, onUpdateScore, targetScore, onRestartGame });
 
   return (
     <td

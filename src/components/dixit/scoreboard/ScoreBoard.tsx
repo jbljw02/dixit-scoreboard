@@ -4,7 +4,13 @@ import PlayerColumn from './PlayerColumn';
 import RoundColumn from './RoundColumn';
 import useRounds from '../../../hooks/useRounds';
 
-export default function ScoreBoard({ players, onUpdateScore, isGameStarted }: ScoreBoardProps) {
+export default function ScoreBoard({
+  players,
+  onUpdateScore,
+  isGameStarted,
+  targetScore,
+  onRestartGame
+}: ScoreBoardProps) {
   const { rounds, addNewRound } = useRounds({ players, isGameStarted });
   return (
     <div className="flex-1 mb-6 bg-white rounded-lg shadow-md">
@@ -17,7 +23,9 @@ export default function ScoreBoard({ players, onUpdateScore, isGameStarted }: Sc
             <RoundColumn
               players={players}
               rounds={rounds}
-              onUpdateScore={onUpdateScore} />
+              onUpdateScore={onUpdateScore}
+              targetScore={targetScore}
+              onRestartGame={onRestartGame} />
           )
         }
       </div>

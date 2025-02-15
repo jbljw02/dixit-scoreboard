@@ -4,7 +4,7 @@ import ScoreBoard from './scoreboard/ScoreBoard';
 import { Player, UpdateScoreProps } from '../../types/dixit.type';
 import CommonButton from '../common/CommonButton';
 import getTotal from '../../utils/getTotal';
-import TargetScoreInput from './scoreboard/TargetScoreInput';
+import TargetScoreInput from './TargetScoreInput';
 
 export default function Dixit() {
     const [players, setPlayers] = useState<Player[]>([]); // 플레이어 목록
@@ -37,6 +37,16 @@ export default function Dixit() {
         }));
     };
 
+    // 게임을 재시작(플레이어는 유지하고 점수 및 라운드 초기화)
+    const restartGame = () => {
+        setPlayers(players.map(player => ({
+            ...player,
+            scores: [],
+            totalScore: 0
+        })));
+        setIsGameStarted(true);
+    };
+
     return (
         <div className="flex flex-col h-screen min-h-screen bg-gradient-to-b from-orange-100 to-yellow-50 px-9 py-7 overflow-hidden">
             <h1 className="text-4xl font-bold text-center mb-6 text-orange-600 font-serif tracking-wider flex-none">
@@ -64,7 +74,8 @@ export default function Dixit() {
                             players={players}
                             onUpdateScore={updateScore}
                             isGameStarted={isGameStarted}
-                            targetScore={targetScore} />
+                            targetScore={targetScore}
+                            onRestartGame={restartGame} />
                         {
                             !isGameStarted && (
                                 <CommonButton

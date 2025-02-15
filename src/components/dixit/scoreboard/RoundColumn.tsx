@@ -6,9 +6,16 @@ interface RoundColumnProps {
   players: Player[];
   rounds: number;
   onUpdateScore: (props: UpdateScoreProps) => void;
+  targetScore: number;
+  onRestartGame: () => void;
 }
 
-export default function RoundColumn({ players, rounds, onUpdateScore }: RoundColumnProps) {
+export default function RoundColumn({ players,
+  rounds,
+  onUpdateScore,
+  targetScore,
+  onRestartGame
+}: RoundColumnProps) {
   return (
     <div className="flex-1 overflow-x-auto">
       <table className="w-full border-collapse text-sm">
@@ -44,7 +51,9 @@ export default function RoundColumn({ players, rounds, onUpdateScore }: RoundCol
                       playerId={player.id}
                       roundIndex={index}
                       currentScore={player.scores[index] || 0}
-                      onUpdateScore={onUpdateScore} />
+                      onUpdateScore={onUpdateScore}
+                      targetScore={targetScore}
+                      onRestartGame={onRestartGame} />
                   ))
                 }
               </tr>
