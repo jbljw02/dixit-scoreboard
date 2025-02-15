@@ -19,10 +19,6 @@ export interface PlayerAddFormProps {
 
 // 점수판의 props 인터페이스
 export interface ScoreBoardProps {
-    players: Player[];
-    onUpdateScore: (props: UpdateScoreProps) => void;
-    isGameStarted: boolean;
-    targetScore: number;
     onRestartGame: () => void;
 }
 

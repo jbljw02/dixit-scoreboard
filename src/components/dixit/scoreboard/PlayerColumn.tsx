@@ -1,12 +1,9 @@
-import { Player } from '../../../types/dixit.type';
+import { useAppSelector } from '../../../store/hooks';
 import { TABLE_STYLE } from './constant/styles';
 
-interface PlayerColumnProps {
-    players: Player[];
-    isGameStarted: boolean;
-}
-
-export default function PlayerColumn({ players, isGameStarted }: PlayerColumnProps) {
+export default function PlayerColumn() {
+    const isGameStarted = useAppSelector(state => state.isGameStarted);
+    const players = useAppSelector(state => state.players);
 
     return (
         <table className={`border-collapse text-sm overflow-hidden

@@ -1,18 +1,19 @@
 import { useState } from 'react';
 import CommonInput from '../common/CommonInput';
+import { useAppDispatch, useAppSelector } from '../../store/hooks';
+import { setTargetScore } from '../../store/features/scoreSlice';
 
-interface TargetScoreInputProps {
-    targetScore: number;
-    onTargetScoreChange: (newScore: number) => void;
-}
-
-export default function TargetScoreInput({ targetScore, onTargetScoreChange }: TargetScoreInputProps) {
+export default function TargetScoreInput() {
+    const dispatch = useAppDispatch();
+    
+    const targetScore = useAppSelector(state => state.targetScore);
     const [isEditingTarget, setIsEditingTarget] = useState<boolean>(false);
 
+    // 승리 조건 점수 변경
     const targetScoreChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const value = Number(e.target.value);
         if (value >= 1) {
-            onTargetScoreChange(value);
+            dispatch(setTargetScore(value));
         }
     };
 

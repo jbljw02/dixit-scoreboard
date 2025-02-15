@@ -1,10 +1,17 @@
 import Swal from 'sweetalert2';
+import { resetRounds } from '../store/features/roundSlice';
+import { useAppDispatch } from '../store/hooks';
+import { resetScores } from '../store/features/playerSlice';
 
-interface UseGameStateProps {
-    onRestartGame: () => void;
-}
+export default function useGameState() {
+    const dispatch = useAppDispatch();
 
-export default function useGameState({ onRestartGame }: UseGameStateProps) {
+    // 라운드 및 플레이어의 점수 초기화
+    const restartGame = () => {
+        dispatch(resetRounds());
+        dispatch(resetScores());
+    }
+
     const gameOverEvent = (playerName: string, totalScore: number) => {
         Swal.fire({
             title: '🎉 게임 종료!',
@@ -25,7 +32,7 @@ export default function useGameState({ onRestartGame }: UseGameStateProps) {
                 // 새 게임 시작
                 window.location.reload();
             } else if (result.isDismissed && result.dismiss === Swal.DismissReason.cancel) {
-                onRestartGame();
+                restartGame();
             }
         });
     };

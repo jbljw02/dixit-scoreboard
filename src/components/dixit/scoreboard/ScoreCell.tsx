@@ -1,26 +1,17 @@
 import CommonInput from '../../common/CommonInput';
 import useScoreCell from '../../../hooks/useScoreCell';
-import { Player, UpdateScoreProps } from '../../../types/dixit.type';
 import { TABLE_STYLE } from './constant/styles';
 
 interface ScoreCellProps {
-  players: Player[];
   playerId: string;
   roundIndex: number;
   currentScore: number;
-  onUpdateScore: (props: UpdateScoreProps) => void;
-  targetScore: number;
-  onRestartGame: () => void;
 }
 
 export default function ScoreCell({
-  players,
   playerId,
   roundIndex,
   currentScore,
-  onUpdateScore,
-  targetScore,
-  onRestartGame
 }: ScoreCellProps) {
   const {
     editingCell,
@@ -30,7 +21,7 @@ export default function ScoreCell({
     cellScoreChange,
     cellScoreSubmit,
     keyDownEvent
-  } = useScoreCell({ players, onUpdateScore, targetScore, onRestartGame });
+  } = useScoreCell();
 
   return (
     <td

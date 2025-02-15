@@ -1,22 +1,22 @@
 import { useState } from "react";
-import { EditingCell, Player, UpdateScoreProps } from "../types/dixit.type";
+import { EditingCell } from "../types/dixit.type";
 import getTotal from "../utils/getTotal";
 import useGameState from "./useGameState";
-
-interface UseScoreCellProps {
-    players: Player[];
-    onUpdateScore: (props: UpdateScoreProps) => void;
-    targetScore: number;
-    onRestartGame: () => void;
-}
+import { useAppDispatch, useAppSelector } from "../store/hooks";
+import { updateScore } from "../store/features/playerSlice";
 
 // 점수 관리 훅
-export default function useScoreCell({ players, onUpdateScore, targetScore }: UseScoreCellProps) {
+export default function useScoreCell() {
+    const dispatch = useAppDispatch();
+
+    const players = useAppSelector(state => state.players);
+    const targetScore = useAppSelector(state => state.targetScore);
+
     const [editingCell, setEditingCell] = useState<EditingCell | null>(null); // 현재 수정 중인 셀 정보
     const [editingScore, setEditingScore] = useState<string>(''); // 현재 수정 중인 점수
     const [errorMessage, setErrorMessage] = useState<string>(''); // 에러 메시지 상태 추가
 
-    const { gameOverEvent } = useGameState({ onRestartGame: () => { } });
+    const { gameOverEvent } = useGameState();
 
     // 셀 클릭 시 점수 수정 시작
     const cellClick = (playerId: string, roundIndex: number, currentScore: number) => {
@@ -63,11 +63,11 @@ export default function useScoreCell({ players, onUpdateScore, targetScore }: Us
             return;
 
         // 점수 업데이트
-        onUpdateScore({
+        dispatch(updateScore({
             playerId: editingCell.playerId,
             roundIndex: editingCell.roundIndex,
             newScore
-        });
+        }));
 
         // 해당 플레이어의 새로운 총점 계산
         const player = players.find(player => player.id === editingCell.playerId);
