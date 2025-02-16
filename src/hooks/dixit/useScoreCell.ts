@@ -5,6 +5,7 @@ import useGameState from "./useGameState";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { updateScore } from "../../store/features/playerSlice";
 import { keyDownEvent } from "../../utils/keyDownEvent";
+import { GAME_CONFIG } from "../../config/game.config";
 
 // 점수 관리 훅
 export default function useScoreCell() {
@@ -30,19 +31,11 @@ export default function useScoreCell() {
     // 클릭된 셀의 점수 변경
     const cellScoreChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const value = Number(e.target.value);
+        const currentMaxScore = GAME_CONFIG.MAX_SCORE_PER_ROUND(players.length);
 
-        /**
-          * 최대 점수 계산(이야기꾼이 아닐 때) 및 제한
-          *
-          * 4명 참가: 3점(이야기꾼 카드 맞춤) + 2점(남은 인원 2명이 내 카드 고름) = 5점
-          * 5명 참가: 3점(이야기꾼 카드 맞춤) + 3점(남은 인원 3명이 내 카드 고름) = 6점
-          * 6명 참가: 3점(이야기꾼 카드 맞춤) + 4점(남은 인원 4명이 내 카드 고름) = 7점
-          *
-          * 즉, 한 라운드당 최대 점수는 `플레이어 수 + 1`점
-          */
-        const maxScore = players.length + 1;
-        if (value > maxScore) {
-            setEditingScore(String(maxScore)); // 최대값을 초과할 경우 최대값으로 설정하고 작업 중지
+        // 입력값이 최대 점수를 초과하는 경우
+        if (value > currentMaxScore) {
+            setEditingScore(String(currentMaxScore));
             return;
         }
 
