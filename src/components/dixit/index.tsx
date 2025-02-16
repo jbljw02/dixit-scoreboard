@@ -43,7 +43,11 @@ export default function Dixit() {
                                     onClick={() => dispatch(setIsGameStarted(true))}
                                     disabled={players.length < GAME_CONFIG.PLAYERS.MIN} // 4인 이상 게임 시작 가능
                                     className="py-4 text-base">
-                                    게임 시작
+                                    {
+                                        players.length < GAME_CONFIG.PLAYERS.MIN ?
+                                            `시작하려면 ${GAME_CONFIG.PLAYERS.MIN}명 이상 필요해요` :
+                                            '게임 시작'
+                                    }
                                 </CommonButton>
                             )
                         }
