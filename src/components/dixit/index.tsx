@@ -4,6 +4,7 @@ import CommonButton from '../common/CommonButton';
 import TargetScoreInput from './TargetScoreInput';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { setIsGameStarted } from '../../store/features/gameSlice';
+import { GAME_CONFIG } from '../../config/game.config';
 
 export default function Dixit() {
     const dispatch = useAppDispatch();
@@ -26,7 +27,7 @@ export default function Dixit() {
             }
             {/* 플레이어 수가 최대 인원 수를 넘지 않으면 추가 폼 출력 */}
             {
-                players.length < 6 && !isGameStarted && (
+                players.length < GAME_CONFIG.PLAYERS.MAX && !isGameStarted && (
                     <PlayerAddForm />
                 )
             }
@@ -40,7 +41,7 @@ export default function Dixit() {
                                 <CommonButton
                                     type="button"
                                     onClick={() => dispatch(setIsGameStarted(true))}
-                                    disabled={players.length < 4} // 4인 이상 게임 시작 가능
+                                    disabled={players.length < GAME_CONFIG.PLAYERS.MIN} // 4인 이상 게임 시작 가능
                                     className="py-4 text-base">
                                     게임 시작
                                 </CommonButton>

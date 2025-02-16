@@ -5,6 +5,7 @@ import useGameState from "./useGameState";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { updateScore } from "../../store/features/playerSlice";
 import { keyDownEvent } from "../../utils/keyDownEvent";
+import { GAME_CONFIG } from "../../config/game.config";
 
 // 점수 관리 훅
 export default function useScoreCell() {
@@ -12,6 +13,8 @@ export default function useScoreCell() {
 
     const players = useAppSelector(state => state.players);
     const targetScore = useAppSelector(state => state.targetScore);
+
+    const maxScore = GAME_CONFIG.MAX_SCORE_PER_ROUND(players.length);
 
     const [editingCell, setEditingCell] = useState<EditingCell | null>(null); // 현재 수정 중인 셀 정보
     const [editingScore, setEditingScore] = useState<string>(''); // 현재 수정 중인 점수
@@ -40,7 +43,6 @@ export default function useScoreCell() {
           *
           * 즉, 한 라운드당 최대 점수는 `플레이어 수 + 1`점
           */
-        const maxScore = players.length + 1;
         if (value > maxScore) {
             setEditingScore(String(maxScore)); // 최대값을 초과할 경우 최대값으로 설정하고 작업 중지
             return;

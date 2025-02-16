@@ -3,6 +3,7 @@ import CommonInput from '../common/CommonInput';
 import CommonButton from '../common/CommonButton';
 import { addPlayer } from '../../store/features/playerSlice';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
+import { GAME_CONFIG } from '../../config/game.config';
 
 export default function PlayerAddForm() {
   const dispatch = useAppDispatch();
@@ -14,7 +15,7 @@ export default function PlayerAddForm() {
     e.preventDefault(); // 폼 제출 시 새로고침 방지
 
     if (newPlayerName.trim() === '') return; // 공백 요청 시 작업 중단
-    if (players.length >= 6) return; // Dixit의 권장 인원 수를 고려하여 6인 제한
+    if (players.length >= GAME_CONFIG.PLAYERS.MAX) return; // 게임 인원 제한
 
     dispatch(addPlayer(newPlayerName)); // 플레이어 추가
     setNewPlayerName(''); // 작업 완료 후 플레이어명 초기화

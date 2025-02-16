@@ -4,6 +4,7 @@ import RoundColumn from './RoundColumn';
 import { useAppDispatch, useAppSelector } from '../../../store/hooks';
 import { addRound } from '../../../store/features/roundSlice';
 import Footer from '../Footer';
+import { GAME_CONFIG } from '../../../config/game.config';
 
 export default function ScoreBoard() {
   const dispatch = useAppDispatch();
@@ -28,7 +29,10 @@ export default function ScoreBoard() {
         isGameStarted && (
           <div className="p-4 flex justify-between">
             <div className='text-[13px] pt-0.5'>
-              라운드당 최대 점수: <b className='underline text-red-500'>{players.length + 1}점</b>
+              라운드당 최대 점수:
+              <b className='underline text-red-500'>
+                {GAME_CONFIG.MAX_SCORE_PER_ROUND(players.length)}점
+              </b>
             </div>
             <CommonButton
               type="button"
