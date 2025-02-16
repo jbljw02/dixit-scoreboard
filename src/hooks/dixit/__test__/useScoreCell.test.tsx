@@ -10,7 +10,12 @@ describe('useScoreCell', () => {
     // 1명의 플레이어 정보와 목표 점수 30점 설정
     const initialState = {
         players: [
-            { id: '1', name: 'Player 1', scores: [], totalScore: 0 }
+            { id: '1', name: 'Player 1', scores: [], totalScore: 0 },
+            { id: '2', name: 'Player 2', scores: [], totalScore: 0 },
+            { id: '3', name: 'Player 3', scores: [], totalScore: 0 },
+            { id: '4', name: 'Player 4', scores: [], totalScore: 0 },
+            { id: '5', name: 'Player 5', scores: [], totalScore: 0 },
+            { id: '6', name: 'Player 6', scores: [], totalScore: 0 },
         ],
         targetScore: '30'
     };
@@ -25,12 +30,11 @@ describe('useScoreCell', () => {
         const { result } = renderHook(() => useScoreCell(), { wrapper });
 
         // 첫 번째 플레이어의 첫 번째 라운드 셀 클릭 시뮬레이션
-        // playerId: '1', roundIndex: 0, currentScore: 0
         act(() => {
             result.current.cellClick('1', 0, 0);
         });
 
-        // 현재 플레이어 수(1명) + 1 = 2점이 최대 점수인데,
+        // 현재 플레이어 수(6명) + 1 = 7점이 최대 점수인데,
         // 10점을 입력하여 최대 점수를 초과하는 상황 시뮬레이션
         act(() => {
             result.current.cellScoreChange({ 
