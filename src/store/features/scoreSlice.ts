@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 export const targetScoreSlice = createSlice({
     name: 'targetScore',
-    initialState: Number(import.meta.env.VITE_TARGET_SCORE),
+    initialState: '30',
     reducers: {
         setTargetScore: (_, action) => {
             return action.payload;

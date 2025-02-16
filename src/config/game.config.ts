@@ -1,8 +1,8 @@
 export const GAME_CONFIG = {
     // 게임 인원 제한
     PLAYERS: {
-        MIN: Number(import.meta.env.VITE_MIN_PLAYERS),
-        MAX: Number(import.meta.env.VITE_MAX_PLAYERS),
+        MIN: 3,
+        MAX: 6,
     },
     /**
      * 최대 점수 계산(이야기꾼이 아닐 때) 및 제한
@@ -14,4 +14,4 @@ export const GAME_CONFIG = {
      * 즉, 한 라운드당 최대 점수는 `플레이어 수 + 1`점
      */
     MAX_SCORE_PER_ROUND: (players: number) => players + 1,
-}
+};
