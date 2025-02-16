@@ -16,7 +16,7 @@ cd dixit-scoreboard
 
 ### 3. 의존성 설치
 ```
-cd dixit-scoreboard
+npm install
 ```
 
 ### 4. 개발 서버 실행
