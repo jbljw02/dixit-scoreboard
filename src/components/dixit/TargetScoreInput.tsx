@@ -22,7 +22,7 @@ export default function TargetScoreInput() {
 
     const targetScoreSubmit = () => {
         if (Number(targetScore) === 0) {
-            showError(); // 점수가 0일 경우 에러 표시
+            showError(); // 0점 입력 시 에러 표시
             return;
         } else {
             setIsError(false);
@@ -57,6 +57,7 @@ export default function TargetScoreInput() {
                 ) :
                     (
                         <div
+                            data-testid="target-score-edit"
                             className="flex items-center gap-1.5 cursor-pointer group"
                             onClick={() => setIsEditingTarget(true)}>
                             <span className="text-orange-500 group-hover:text-orange-600 transition-colors">

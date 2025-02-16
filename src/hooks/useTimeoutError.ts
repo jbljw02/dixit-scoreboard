@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
 interface UseTimeoutErrorProps {
-    duration?: number;  // 에러 표시 지속 시간 (ms)
+    duration?: number; // 에러 표시 지속 시간(ms)
 }
 
 export default function useTimeoutError({ duration = 800 }: UseTimeoutErrorProps = {}) {
