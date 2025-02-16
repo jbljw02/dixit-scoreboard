@@ -1,8 +1,8 @@
 export const GAME_CONFIG = {
     // 게임 인원 제한
     PLAYERS: {
-        MIN: 3,
-        MAX: 6,
+        MIN: Number(import.meta.env.VITE_MIN_PLAYERS),
+        MAX: Number(import.meta.env.VITE_MAX_PLAYERS),
     },
     /**
      * 최대 점수 계산(이야기꾼이 아닐 때) 및 제한
