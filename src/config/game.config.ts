@@ -14,4 +14,4 @@ export const GAME_CONFIG = {
      * 즉, 한 라운드당 최대 점수는 `플레이어 수 + 1`점
      */
     MAX_SCORE_PER_ROUND: (players: number) => players + 1,
-};
+}

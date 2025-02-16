@@ -57,7 +57,6 @@ export default function TargetScoreInput() {
                 ) :
                     (
                         <div
-                            data-testid="target-score-edit"
                             className="flex items-center gap-1.5 cursor-pointer group"
                             onClick={() => setIsEditingTarget(true)}>
                             <span className="text-orange-500 group-hover:text-orange-600 transition-colors">
