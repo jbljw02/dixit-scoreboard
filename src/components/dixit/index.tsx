@@ -16,7 +16,7 @@ export default function Dixit() {
         <div className="flex flex-col h-full bg-gradient-to-b from-orange-100 to-yellow-50 px-9 py-7 overflow-hidden">
             <h1
                 onClick={() => window.location.reload()}
-                className="text-4xl font-bold text-center mb-8 text-orange-600 font-serif tracking-wider flex-none">
+                className="text-4xl font-bold text-center mb-8 text-orange-600 font-serif tracking-wider flex-none cursor-pointer">
                 Dixit Score Board
             </h1>
             {/* 승리 조건 점수 설정 영역 */}

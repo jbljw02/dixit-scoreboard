@@ -13,7 +13,6 @@ export default function useScoreCell() {
 
     const players = useAppSelector(state => state.players);
     const targetScore = useAppSelector(state => state.targetScore);
-
     const maxScore = GAME_CONFIG.MAX_SCORE_PER_ROUND(players.length);
 
     const [editingCell, setEditingCell] = useState<EditingCell | null>(null); // 현재 수정 중인 셀 정보
@@ -58,7 +57,7 @@ export default function useScoreCell() {
         const newScore = Number(editingScore);
         if (isNaN(newScore) ||
             newScore < 0 ||
-            newScore > players.length + 1)
+            newScore > players.length + 1) 
             return;
 
         // 점수 업데이트

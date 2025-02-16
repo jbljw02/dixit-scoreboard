@@ -3,9 +3,12 @@ import CommonInput from '../common/CommonInput';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { setTargetScore } from '../../store/features/scoreSlice';
 import { keyDownEvent } from '../../utils/keyDownEvent';
+import useTimeoutError from '../../hooks/useTimeoutError';
 
 export default function TargetScoreInput() {
     const dispatch = useAppDispatch();
+
+    const { isError, setIsError, showError } = useTimeoutError();
 
     const targetScore = useAppSelector(state => state.targetScore);
     const [isEditingTarget, setIsEditingTarget] = useState<boolean>(false);
@@ -19,7 +22,10 @@ export default function TargetScoreInput() {
 
     const targetScoreSubmit = () => {
         if (Number(targetScore) === 0) {
+            showError(); // 점수가 0일 경우 에러 표시
             return;
+        } else {
+            setIsError(false);
         }
 
         setIsEditingTarget(false);
@@ -46,7 +52,8 @@ export default function TargetScoreInput() {
                         onBlur={targetScoreSubmit}
                         onKeyDown={targetScoreKeyDownEvent}
                         autoFocus={true}
-                        className="h-[35px]" />
+                        className="h-[35px]"
+                        isError={isError} />
                 ) :
                     (
                         <div

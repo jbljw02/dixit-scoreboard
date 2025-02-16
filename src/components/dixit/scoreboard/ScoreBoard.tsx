@@ -30,7 +30,7 @@ export default function ScoreBoard() {
           <div className="p-4 flex justify-between">
             <div className='text-[13px] pt-0.5'>
               라운드당 최대 점수:
-              <b className='underline text-red-500'>
+              <b className='underline text-red-500 ml-1'>
                 {GAME_CONFIG.MAX_SCORE_PER_ROUND(players.length)}점
               </b>
             </div>
